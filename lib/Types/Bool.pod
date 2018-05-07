@@ -1,0 +1,80 @@
+
+=encoding utf8
+
+=head1 NAME
+
+Types::Bool - Booleans as objects for Perl
+
+=head1 SYNOPSIS
+
+    use Types::Bool;
+
+    $true  = Types::Bool::true();
+    $false = Types::Bool::false();
+
+    is_bool( Types::Bool::true() );    # true
+    is_bool('xxx');                    # false
+
+    to_bool(1);     # Types::Bool::true()
+    to_bool('');    # Types::Bool::false()
+
+=head1 DESCRIPTION
+
+The code of this module would look as below, if not
+for the efforts to be compatible with L<JSON::PP>
+and L<Types::Serialiser> modules.
+
+    package Types::Bool;
+
+    use 5.005;
+    use Scalar::Util ();
+
+    use overload (
+        '0+' => sub { ${ $_[0] } },
+        '++' => sub { $_[0] = ${ $_[0] } + 1 },
+        '--' => sub { $_[0] = ${ $_[0] } - 1 },
+        fallback => 1,
+    );
+
+    use constant true  => bless \( my $dummy = 1 ), 'Types::Bool';
+    use constant false => bless \( my $dummy = 0 ), 'Types::Bool';
+
+    sub is_bool ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa('Types::Bool') }
+
+    sub to_bool ($) { $_[0] ? true : false }
+
+=head1 FUNCTIONS
+
+L<Types::Bool> implements the following functions, which can be imported individually.
+
+=head2 false
+
+    $false = Types::Bool::false;
+
+Return the canonical "false" value.
+
+=head2 is_bool
+
+    $is_bool = Types::Bool::is_bool($value);
+
+Return true if given a C<Types::Bool> object.
+Return false otherwise.
+
+=head2 to_bool
+
+    $bool = Types::Bool::to_bool($value);
+
+Turns a true or false Perl value into
+C<Types::Bool::true> or C<Types::Bool::false>.
+
+=head2 true
+
+    $true = Types::Bool::true;
+
+Return the canonical "true" value.
+
+=head1 ACKNOWLEDGMENTS
+
+Original idea and code came from L<JSON::XS::Boolean> written by Marc Lehmann <schmorp[at]schmorp.de>.
+
+=cut
