@@ -1,8 +1,13 @@
 
-# PODNAME: Types::Bool
-# ABSTRACT: Booleans as objects for Perl
-
 =encoding utf8
+
+=head1 NAME
+
+Types::Bool - Booleans as objects for Perl
+
+=head1 VERSION
+
+version 2.98001
 
 =head1 SYNOPSIS
 
@@ -108,7 +113,8 @@ and L<Types::Serialiser> modules.
 
     package Types::Bool;
 
-    use 5.005;
+    use 5.006;
+    use Exporter 1.57 'import';
     use Scalar::Util ();
 
     use overload (
@@ -117,6 +123,8 @@ and L<Types::Serialiser> modules.
         '--' => sub { $_[0] = ${ $_[0] } - 1 },
         fallback => 1,
     );
+
+    our @EXPORT_OK = qw(true false is_bool to_bool);
 
     use constant true  => bless \( my $dummy = 1 ), 'Types::Bool';
     use constant false => bless \( my $dummy = 0 ), 'Types::Bool';
@@ -183,5 +191,16 @@ L<JSON::XS>
 L<JSON::PP>
 
 L<Cpanel::JSON::XS>
+
+=head1 AUTHOR
+
+Adriano Ferreira <ferreira@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2018 by Adriano Ferreira.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
