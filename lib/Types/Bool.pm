@@ -7,6 +7,8 @@ BEGIN {
 
 package Types::Bool;
 
+# ABSTRACT: Booleans as objects for Perl
+
 use 5.005;
 
 BEGIN {

@@ -1,9 +1,8 @@
 
+# PODNAME: Types::Bool
+# ABSTRACT: Booleans as objects for Perl
+
 =encoding utf8
-
-=head1 NAME
-
-Types::Bool - Booleans as objects for Perl
 
 =head1 SYNOPSIS
 
@@ -21,7 +20,7 @@ Types::Bool - Booleans as objects for Perl
 =head1 DESCRIPTION
 
 I<This is meant as a draft for a standard interface to boolean objects for Perl.>
-This is an alternate to I<bool.pm draft> in
+This is an alternative to I<bool.pm draft> in
 L<http://blogs.perl.org/users/tinita/2018/05/my-report-of-the-perl-toolchain-summit-2018-in-oslo.html>.
 
 Perl has no native representation for booleans.
@@ -173,7 +172,7 @@ See L<Types::Serializer/"BUGS">.
 
 =head1 ACKNOWLEDGMENTS
 
-Original idea and code came from L<JSON::XS::Boolean> written by Marc Lehmann <schmorp[at]schmorp.de>.
+Original idea and code came from L<JSON::XS::Boolean> written by Marc Lehmann.
 
 =head1 SEE ALSO
 

@@ -1,0 +1,19 @@
+
+# OS X
+*.DS_STORE
+
+# perltidy backups
+*.bak
+
+# vim temp files
+*.swp
+
+# etc-quack generate copies
+*.orig
+
+# local lib
+/local/
+
+## dzil build files
+#/Types-Bool-*.tar.gz
+#/Types-Bool-*/
