@@ -20,6 +20,89 @@ Types::Bool - Booleans as objects for Perl
 
 =head1 DESCRIPTION
 
+I<This is meant as a draft for a standard interface to boolean objects for Perl.>
+This is an alternate to I<bool.pm draft> in
+L<http://blogs.perl.org/users/tinita/2018/05/my-report-of-the-perl-toolchain-summit-2018-in-oslo.html>.
+
+Perl has no native representation for booleans.
+Most of the time the Perl concept of truth is enough.
+But when dealing with serialization of formats
+which support booleans, it is desirable to keep the
+booleans intact on round trips, eg. when writing after loading.
+And there are other good reasons for that,
+like strict validation via various mechanisms, like schemas,
+OpenAPI, type hierarchies, etc.
+
+A solution for that was adopted for JSON modules
+around 2012 by using references to C<1> or C<0>
+blessed into L<JSON::PP::Boolean> which was the
+chosen canonical package for these objects.
+
+The problem with that was the coupling with L<JSON::PP>
+for no apparent good reason. Booleans are independent
+of JSON and this association makes little sense
+when loading documents in formats like YAML, MessagePack, BSON, etc.
+However, the integration of the concept of boolean
+for all these applications is quite convenient.
+
+Marc Lehmann's L<Types::Serialiser> approached this problem
+by creating a common interface used by L<JSON::XS> and L<CBOR::XS>
+modules. This module lifts this core concept (including
+idea, implementation and documentation) into an isolated treatment
+for booleans only – so this can be proposed as the common
+ground for interoperability on booleans as objects for Perl modules.
+
+The implementation keeps the compatibility
+with the previous agreement on C<JSON::PP::Boolean>
+by making C<Types::Bool> stash an alias for C<JSON::PP::Boolean>.
+That means
+
+    Types::Bool::true->isa('JSON::PP::Boolean');
+
+but also
+
+    Types::Bool::true->isa('Types::Bool');
+
+This also allows an optimization to an isa test
+by direct comparison of stash pointers.
+
+=head2 INTERFACE
+
+L<Types::Bool> has two ready-to-use instances for true and false.
+
+    Types::Bool::true()
+
+    Types::Bool::false()
+
+L<Types::Bool> true values are represented as a reference
+to a scalar containing C<1> – implementations are allowed
+to directly test for this. For example, one can differentiate
+between a Perl true value and a L<Types::Bool> true by using this:
+
+    $value && Types::Bool::is_bool $value
+
+L<Types::Bool> false values are represented as a reference
+to a scalar containing C<0> - implementations are allowed
+to directly test for this.
+
+
+One can test if a value is a L<Types::Bool> with
+
+    Types::Bool::is_bool($value);
+
+Converting from a Perl true or false value into L<Types::Bool> can
+be done with
+
+    Types::Bool::to_bool($value);
+
+This minimum interface allows for easy and efficient implementation
+of other operations. Like negating booleans:
+
+    Types::Bool::to_bool( !$value );
+
+
+=head2 CORE CODE
+
 The code of this module would look as below, if not
 for the efforts to be compatible with L<JSON::PP>
 and L<Types::Serialiser> modules.
@@ -53,12 +136,17 @@ L<Types::Bool> implements the following functions, which can be imported individ
 
 Return the canonical "false" value.
 
+This function has a C<()> prototype and works as a constant
+(suitable for inlining by the Perl interpreter).
+
 =head2 is_bool
 
     $is_bool = Types::Bool::is_bool($value);
 
 Return true if given a C<Types::Bool> object.
 Return false otherwise.
+
+This function has a C<($)> prototype.
 
 =head2 to_bool
 
@@ -67,14 +155,34 @@ Return false otherwise.
 Turns a true or false Perl value into
 C<Types::Bool::true> or C<Types::Bool::false>.
 
+This function has a C<($)> prototype.
+
 =head2 true
 
     $true = Types::Bool::true;
 
 Return the canonical "true" value.
 
+This function has a C<()> prototype and works as a constant
+(suitable for inlining by the Perl interpreter).
+
+=head1 BUGS
+
+The use of L<overload> makes this module heavier.
+See L<Types::Serializer/"BUGS">.
+
 =head1 ACKNOWLEDGMENTS
 
 Original idea and code came from L<JSON::XS::Boolean> written by Marc Lehmann <schmorp[at]schmorp.de>.
+
+=head1 SEE ALSO
+
+L<Types::Serialiser>
+
+L<JSON::XS>
+
+L<JSON::PP>
+
+L<Cpanel::JSON::XS>
 
 =cut
