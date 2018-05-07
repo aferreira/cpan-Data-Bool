@@ -30,6 +30,9 @@ BEGIN {
         require Scalar::Util;
         *is_bool = sub ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa('Types::Bool') };
     }
+
+    $Types::Bool::VERSION = '2.98001'
+      unless $Types::Bool::VERSION;
 }
 
 sub to_bool ($) { $_[0] ? true : false }
