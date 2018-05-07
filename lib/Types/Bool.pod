@@ -6,16 +6,16 @@
 
 =head1 SYNOPSIS
 
-    use Types::Bool;
+    use Types::Bool qw(true false is_bool to_bool);
 
-    $true  = Types::Bool::true();
-    $false = Types::Bool::false();
+    $true  = true;
+    $false = false;
 
-    is_bool( Types::Bool::true() );    # true
-    is_bool('xxx');                    # false
+    is_bool(true);     # true
+    is_bool('xxx');    # false
 
-    to_bool(1);     # Types::Bool::true()
-    to_bool('');    # Types::Bool::false()
+    to_bool(1);        # Types::Bool::true()
+    to_bool('');       # Types::Bool::false()
 
 =head1 DESCRIPTION
 
