@@ -98,8 +98,23 @@ be done with
 
     Types::Bool::to_bool($value);
 
-This minimum interface allows for easy and efficient implementation
-of other operations. Like negating booleans:
+Also part of this interface is a few overloaded
+operators for L<Type::Bool> objects.
+
+    # bool
+    true  ? 'yes' : 'no';    # 'yes'
+    false ? 'yes' : 'no';    # 'no'
+
+    # 0+
+    0+true;        # 1
+    0+false;       # 0
+
+    # ""
+    true . '';     # 1
+    false . '';    # 0
+
+This minimum set of functionality allows for easy and efficient
+implementation of other operations, like negating booleans:
 
     Types::Bool::to_bool( !$value );
 
