@@ -3,6 +3,10 @@ Release history for Types-Bool
 
 {{$NEXT}}
 
+2.98004   2018-05-08 10:40:57-07:00 America/Los_Angeles (TRIAL RELEASE)
+
+    - Documentation: "COMPATIBILITY" section
+
 2.98003   2018-05-07 18:32:43-07:00 America/Los_Angeles (TRIAL RELEASE)
 
     - Documentation: overloaded operations are part of interface
