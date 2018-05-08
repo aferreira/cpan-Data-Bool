@@ -7,7 +7,7 @@ Types::Bool - Booleans as objects for Perl
 
 =head1 VERSION
 
-version 2.98002
+version 2.98003
 
 =head1 SYNOPSIS
 

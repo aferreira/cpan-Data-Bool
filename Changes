@@ -3,6 +3,10 @@ Release history for Types-Bool
 
 {{$NEXT}}
 
+2.98003   2018-05-07 18:32:43-07:00 America/Los_Angeles (TRIAL RELEASE)
+
+    - Documentation: overloaded operations are part of interface
+
 2.98002   2018-05-07 17:30:14-07:00 America/Los_Angeles (TRIAL RELEASE)
 
     - Get rid of unwanted files in last tarball

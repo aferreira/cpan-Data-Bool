@@ -31,7 +31,7 @@ BEGIN {
         *is_bool = sub ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa('Types::Bool') };
     }
 
-    $Types::Bool::VERSION = '2.98002'
+    $Types::Bool::VERSION = '2.98003'
       unless $Types::Bool::VERSION;
 }
 
