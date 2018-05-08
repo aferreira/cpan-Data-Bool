@@ -58,7 +58,7 @@ ground for interoperability on booleans as objects for Perl modules.
 
 The implementation keeps the compatibility
 with the previous agreement on C<JSON::PP::Boolean>
-by making C<Types::Bool> stash an alias for C<JSON::PP::Boolean>.
+by making the C<Types::Bool> stash an alias for C<JSON::PP::Boolean>.
 That means
 
     Types::Bool::true->isa('JSON::PP::Boolean');
@@ -191,7 +191,7 @@ But it is not hard to see this getting out of hand
 if they start to diverge.
 
 The additional interface for boolean support provided by these
-modules, functions, variables and methods, live on their own packages:
+modules, whether functions, variables and methods, live on their own packages:
 
 =over 4
 
