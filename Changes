@@ -3,6 +3,10 @@ Release history for Types-Bool
 
 {{$NEXT}}
 
+2.98002   2018-05-07 17:30:14-07:00 America/Los_Angeles (TRIAL RELEASE)
+
+    - Get rid of unwanted files in last tarball
+
 2.98001   2018-05-07 14:29:29-07:00 America/Los_Angeles (TRIAL RELEASE)
 
     - Bump version - greater than current JSON::PP::Boolean version
