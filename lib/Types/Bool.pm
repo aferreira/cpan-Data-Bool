@@ -21,9 +21,9 @@ BEGIN {
     ) unless overload::Method( Types::Bool, '0+' );
 
     require constant;
-    constant->import( true => bless \( my $dummy = 1 ), 'Types::Bool' )
+    constant->import( true => do { bless \( my $dummy = 1 ), 'Types::Bool' } )
       unless Types::Bool->can('true');
-    constant->import( false => bless \( my $dummy = 0 ), 'Types::Bool' )
+    constant->import( false => do { bless \( my $dummy = 0 ), 'Types::Bool' } )
       unless Types::Bool->can('false');
 
     unless ( Types::Bool->can('is_bool') ) {
