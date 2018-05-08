@@ -146,6 +146,100 @@ and L<Cpanel::JSON::XS> modules.
 
     sub to_bool ($) { $_[0] ? true : false }
 
+=head1 COMPATIBILITY
+
+Besides the agreement on using C<JSON::PP::Boolean>
+as the canonical package for booleans, as of May 2018,
+the main JSON modules all step on each others' toes
+with varying degrees of intensity when it comes
+to decide what is implemented.
+
+What we consider here the "main JSON modules" are:
+L<JSON::PP>, L<Types::Serialiser>, and L<Cpanel::JSON::XS>.
+These are the original sources of ideas,
+implementations, and package names related to boolean
+support and the most relevant
+CPAN modules on the dependency chain.
+
+For example,
+
+=over 4
+
+=item *
+
+L<JSON::PP::Boolean> defines C<VERSION> and overloads
+C<0+>, C<++> and C<--> operators.
+
+=item *
+
+L<Types::Serialiser> establishes an C<ISA> relationship
+with a base class overloading the same operators above.
+
+=item *
+
+L<Cpanel::JSON::XS> in turn overloads these operators
+and a few more.
+
+=back
+
+As these modules are loaded by a Perl program,
+these actions are all replayed over the C<JSON::PP::Boolean>
+package. (The last one loaded is basically who wins
+on the final code at runtime.) This is almost harmless,
+because their implementations mostly agree with each other.
+But it is not hard to see this getting out of hand
+if they start to diverge.
+
+The additional interface for boolean support provided by these
+modules, functions, variables and methods, live on their own packages:
+
+=over 4
+
+=item *
+
+L<JSON::PP>: C<true>, C<false>, C<is_bool> under C<JSON::PP>
+
+=item *
+
+L<Types::Serialiser>: C<true>, C<$true>, C<false>, C<$false>, C<is_bool>,
+C<is_true>, C<is_false> under C<Types::Serialiser>
+
+=item *
+
+L<Cpanel::JSON::XS>: C<true>, C<$true>, C<false>, C<$false>,
+C<is_bool> under C<Cpanel::JSON::XS>.
+
+=back
+
+They all have subtle differences related to prototypes, enabled pragmas,
+and stricter or more lenient behavior. Since those don't dwell
+in the same base package, C<JSON::PP::Boolean>, they are safe
+from the point of view of other consumers of booleans and relevant
+to the back-compatibility history of each of these modules.
+But they all contribute to the lack of consistency on the interface
+to deal with booleans.
+
+Those issues mainly stem from the lack
+of a consensus on ownership of C<JSON::PP::Boolean>.
+With the advent of L<Types::Bool>, this may or
+may not be mitigated depending on the adoption
+of a unified treatment of sorts.
+
+When L<Types::Bool> gets added to this list as yet another
+module playing with C<JSON::PP::Boolean>,
+it takes the most conservative approach: it does not touch a function
+or overloaded method which is already there.
+That means it will still provide all of the interface described
+before, because it will implement anything that is missing.
+But it may suboptimally accept what has been defined before
+by a previous module. And it does not fight with modules which
+get loaded after either.
+
+Ideally, the best scenario will be if / when the main JSON modules
+start depending on L<Types::Bool>. Even if that does not happen,
+this module still stands as a compatible alternative to
+support booleans as objects for Perl.
+
 =head1 FUNCTIONS
 
 L<Types::Bool> implements the following functions, which can be imported individually.
@@ -199,9 +293,9 @@ Original idea and code came from L<JSON::XS::Boolean> written by Marc Lehmann.
 
 L<Types::Serialiser>
 
-L<JSON::XS>
-
 L<JSON::PP>
+
+L<JSON::XS>
 
 L<Cpanel::JSON::XS>
 
