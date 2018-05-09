@@ -3,6 +3,12 @@ Release history for Types-Bool
 
 {{$NEXT}}
 
+2.98009   2018-05-09 14:34:09-07:00 America/Los_Angeles
+
+    - Fix generated t/after-*.t tests
+
+2.98008   2018-05-09 13:42:03-07:00 America/Los_Angeles
+
     - Better cooperation with JSON::PP
     - Make modules needed for tests soft dependencies
 
