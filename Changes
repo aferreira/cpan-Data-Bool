@@ -3,6 +3,10 @@ Release history for Types-Bool
 
 {{$NEXT}}
 
+2.98006   2018-05-09 09:09:24-07:00 America/Los_Angeles
+
+    - First non-development release
+
 2.98005   2018-05-08 17:02:14-07:00 America/Los_Angeles (TRIAL RELEASE)
 
     - Fix warning about masked "my" variables
