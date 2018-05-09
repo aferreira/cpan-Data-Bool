@@ -33,6 +33,8 @@ BEGIN {
 
     $Types::Bool::VERSION = '2.98006'
       unless $Types::Bool::VERSION;
+
+    $Types::Bool::ALT_VERSION = '2.98006';
 }
 
 sub to_bool ($) { $_[0] ? true : false }
