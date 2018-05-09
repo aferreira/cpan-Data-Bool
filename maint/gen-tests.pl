@@ -19,7 +19,7 @@ for my $m (qw(Types::Serialiser JSON::PP Cpanel::JSON::XS)) {
         my $try = try_module_code($m);
 
         {    # Before
-            my $content = $t->slurp =~ s/(^use Types::Bool.*$)/$try\n$1\n/smr;
+            my $content = $t->slurp =~ s/(^use Types::Bool.*$)/$try\n$1/mr;
 
             my $n = file( 't', join( '-', 'before', $d, $t->basename ) );
             $n->parent->mkpath unless -e $n->parent;
@@ -28,7 +28,7 @@ for my $m (qw(Types::Serialiser JSON::PP Cpanel::JSON::XS)) {
         }
 
         {    # After
-            my $content = $t->slurp =~ s/(^use Types::Bool.*$)/$1\n$try\n/smr;
+            my $content = $t->slurp =~ s/(^use Types::Bool.*$)/$1\n$try/mr;
 
             my $n = file( 't', join( '-', 'after', $d, $t->basename ) );
             $n->parent->mkpath unless -e $n->parent;
