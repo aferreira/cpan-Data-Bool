@@ -3,6 +3,10 @@ BEGIN {
 
     # For historical reasons, alias *Types::Bool with JSON::PP::Boolean
     *Types::Bool:: = *JSON::PP::Boolean::;
+
+    # JSON/PP/Boolean.pm is redundant
+    $INC{'JSON/PP/Boolean.pm'} = __FILE__
+      unless $ENV{TYPES_BOOL_LOUD};
 }
 
 package Types::Bool;
