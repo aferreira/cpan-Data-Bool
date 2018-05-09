@@ -6,3 +6,4 @@
 -l=98   # Max line width is 98 cols
 -wn     # Weld nested containers
 -fnl    # Freeze newlines
+-tso    # Tight secret operators
