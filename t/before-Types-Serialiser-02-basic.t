@@ -35,4 +35,3 @@ plan tests => 16;
     cmp_ok( $dec - 2, '<',  0, 'true()-2 < 0' );
     cmp_ok( $dec * 2, '==', 2, 'true()*2 == 2' );
 }
-

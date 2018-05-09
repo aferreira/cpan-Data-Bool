@@ -4,6 +4,8 @@ use Test::More;
 # From MLEHMANN/Types-Serialiser-1.0/t/51_types.t
 
 use Types::Bool;
+eval { require Types::Serialiser };
+plan skip_all => "Types::Serialiser needed for this test" if $@;
 
 plan tests => 16;
 
@@ -33,6 +35,3 @@ plan tests => 16;
     cmp_ok( $dec - 2, '<',  0, 'true()-2 < 0' );
     cmp_ok( $dec * 2, '==', 2, 'true()*2 == 2' );
 }
-
-eval { require Types::Serialiser };
-plan skip_all => "Types::Serialiser needed for this test" if $@;

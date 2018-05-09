@@ -24,4 +24,3 @@ ok( is_true( to_bool('true') ) );
 ok( is_true( to_bool('xxx') ) );
 ok( is_true( to_bool( [] ) ) );
 ok( is_true( to_bool( {} ) ) );
-

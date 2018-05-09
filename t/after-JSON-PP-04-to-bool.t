@@ -4,6 +4,8 @@ use warnings;
 use Test::More;
 
 use Types::Bool qw(true false is_bool to_bool);
+eval { require JSON::PP };
+plan skip_all => "JSON::PP needed for this test" if $@;
 
 plan tests => 10;
 
@@ -22,6 +24,3 @@ ok( is_true( to_bool('true') ) );
 ok( is_true( to_bool('xxx') ) );
 ok( is_true( to_bool( [] ) ) );
 ok( is_true( to_bool( {} ) ) );
-
-eval { require JSON::PP };
-plan skip_all => "JSON::PP needed for this test" if $@;
