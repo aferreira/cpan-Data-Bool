@@ -5,7 +5,7 @@ BEGIN {
     *Types::Bool:: = *JSON::PP::Boolean::;
 
     # JSON/PP/Boolean.pm is redundant
-    $INC{'JSON/PP/Boolean.pm'} = __FILE__
+    $INC{'JSON/PP/Boolean.pm'} ||= __FILE__
       unless $ENV{TYPES_BOOL_LOUD};
 }
 
