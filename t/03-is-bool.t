@@ -26,12 +26,10 @@ ok( !is_bool('JSON::PP::Boolean'), '"JSON::PP::Boolean" not is_bool()' );
 ok( !is_bool( [] ), '[] not is_bool()' );
 ok( !is_bool( {} ), '{} not is_bool()' );
 
-ok( is_bool( bless( \( my $dummy = 0 ), 'Types::Bool' ) ), 'bless \0, "Types::Bool" is_bool()' );
-ok( is_bool( bless( \( my $dummy = 0 ), 'JSON::PP::Boolean' ) ),
-    'bless \0, "JSON::PP::Boolean" is_bool()' );
-ok( is_bool( bless( \( my $dummy = 1 ), 'Types::Bool' ) ), 'bless \1, "Types::Bool" is_bool()' );
-ok( is_bool( bless( \( my $dummy = 1 ), 'JSON::PP::Boolean' ) ),
-    'bless \1, "JSON::PP::Boolean" is_bool()' );
+ok( is_bool( do { bless \( my $dummy = 0 ), 'Types::Bool' } ), 'bless \0, "Types::Bool" is_bool()' );
+ok( is_bool( do { bless \( my $dummy = 0 ), 'JSON::PP::Boolean' } ), 'bless \0, "JSON::PP::Boolean" is_bool()' );
+ok( is_bool( do { bless \( my $dummy = 1 ), 'Types::Bool' } ), 'bless \1, "Types::Bool" is_bool()' );
+ok( is_bool( do { bless \( my $dummy = 1 ), 'JSON::PP::Boolean' } ), 'bless \1, "JSON::PP::Boolean" is_bool()' );
 
 package Bool2;
 our @ISA = qw(Types::Bool);
@@ -41,7 +39,7 @@ our @ISA = qw(JSON::PP::Boolean);
 
 package main;
 
-ok( is_bool( bless( \( my $dummy = 0 ), 'Bool2' ) ), 'bless \0, "Bool2" is_bool()' );
-ok( is_bool( bless( \( my $dummy = 0 ), 'Bool3' ) ), 'bless \0, "Bool3" is_bool()' );
-ok( is_bool( bless( \( my $dummy = 1 ), 'Bool2' ) ), 'bless \1, "Bool2" is_bool()' );
-ok( is_bool( bless( \( my $dummy = 1 ), 'Bool3' ) ), 'bless \1, "Bool3" is_bool()' );
+ok( is_bool( do { bless \( my $dummy = 0 ), 'Bool2' } ), 'bless \0, "Bool2" is_bool()' );
+ok( is_bool( do { bless \( my $dummy = 0 ), 'Bool3' } ), 'bless \0, "Bool3" is_bool()' );
+ok( is_bool( do { bless \( my $dummy = 1 ), 'Bool2' } ), 'bless \1, "Bool2" is_bool()' );
+ok( is_bool( do { bless \( my $dummy = 1 ), 'Bool3' } ), 'bless \1, "Bool3" is_bool()' );
