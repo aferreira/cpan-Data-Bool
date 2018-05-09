@@ -139,8 +139,8 @@ and L<Cpanel::JSON::XS> modules.
 
     our @EXPORT_OK = qw(true false is_bool to_bool);
 
-    use constant true  => bless \( my $dummy = 1 ), 'Types::Bool';
-    use constant false => bless \( my $dummy = 0 ), 'Types::Bool';
+    use constant true  => do { bless \( my $dummy = 1 ), 'Types::Bool' };
+    use constant false => do { bless \( my $dummy = 0 ), 'Types::Bool' };
 
     sub is_bool ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa('Types::Bool') }
 
