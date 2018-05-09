@@ -24,9 +24,7 @@ version 2.98006
 
 =head1 DESCRIPTION
 
-I<This is meant as a draft for a standard interface to boolean objects for Perl.>
-This is an alternative to I<bool.pm draft> in
-L<http://blogs.perl.org/users/tinita/2018/05/my-report-of-the-perl-toolchain-summit-2018-in-oslo.html>.
+I<This is meant as a standard interface to boolean objects for Perl.>
 
 Perl has no native representation for booleans.
 Most of the time the Perl concept of truth is enough.
@@ -288,6 +286,9 @@ See L<Types::Serializer/"BUGS">.
 =head1 ACKNOWLEDGMENTS
 
 Original idea and code came from L<JSON::XS::Boolean> written by Marc Lehmann.
+
+Tina Müller inspired me to create this distribution after reading her
+L<PTS 2018 report|http://blogs.perl.org/users/tinita/2018/05/my-report-of-the-perl-toolchain-summit-2018-in-oslo.html>.
 
 =head1 SEE ALSO
 
