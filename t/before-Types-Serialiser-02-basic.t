@@ -1,10 +1,13 @@
 
-use Test::More tests => 16;
+use Test::More;
 
 # From MLEHMANN/Types-Serialiser-1.0/t/51_types.t
 
-use Types::Serialiser ();
+eval { require Types::Serialiser };
+plan skip_all => "Types::Serialiser needed for this test" if $@;
 use Types::Bool;
+
+plan tests => 16;
 
 {
     my $dec = Types::Bool::false;

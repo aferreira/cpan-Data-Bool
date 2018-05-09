@@ -1,10 +1,13 @@
 
 use strict;
 use warnings;
-use Test::More tests => 10;
+use Test::More;
 
-use Cpanel::JSON::XS ();
+eval { require Cpanel::JSON::XS };
+plan skip_all => "Cpanel::JSON::XS needed for this test" if $@;
 use Types::Bool qw(true false is_bool to_bool);
+
+plan tests => 10;
 
 sub is_true ($)  { is_bool( $_[0] ) && ${ $_[0] } }
 sub is_false ($) { is_bool( $_[0] ) && !${ $_[0] } }

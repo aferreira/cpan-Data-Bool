@@ -1,9 +1,11 @@
 
 use strict;
 use warnings;
-use Test::More tests => 22;
+use Test::More;
 
 use Types::Bool qw(true false is_bool);
+
+plan tests => 22;
 
 ok( is_bool(true),  'true is_bool()' );
 ok( is_bool(false), 'false is_bool()' );
@@ -44,4 +46,5 @@ ok( is_bool( do { bless \( my $dummy = 0 ), 'Bool3' } ), 'bless \0, "Bool3" is_b
 ok( is_bool( do { bless \( my $dummy = 1 ), 'Bool2' } ), 'bless \1, "Bool2" is_bool()' );
 ok( is_bool( do { bless \( my $dummy = 1 ), 'Bool3' } ), 'bless \1, "Bool3" is_bool()' );
 
-use Cpanel::JSON::XS ();
+eval { require Cpanel::JSON::XS };
+plan skip_all => "Cpanel::JSON::XS needed for this test" if $@;

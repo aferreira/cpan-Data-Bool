@@ -1,10 +1,13 @@
 
 use strict;
 use warnings;
-use Test::More tests => 10;
+use Test::More;
 
-use JSON::PP ();
+eval { require JSON::PP };
+plan skip_all => "JSON::PP needed for this test" if $@;
 use Types::Bool qw(true false is_bool to_bool);
+
+plan tests => 10;
 
 sub is_true ($)  { is_bool( $_[0] ) && ${ $_[0] } }
 sub is_false ($) { is_bool( $_[0] ) && !${ $_[0] } }
