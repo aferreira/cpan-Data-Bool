@@ -6,7 +6,7 @@ BEGIN {
 
     # JSON/PP/Boolean.pm is redundant
     $INC{'JSON/PP/Boolean.pm'} ||= __FILE__
-      unless $ENV{TYPES_BOOL_LOUD};
+      unless $ENV{TYPES_BOOL_NICE};
 }
 
 package Types::Bool;
