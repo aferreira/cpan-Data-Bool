@@ -290,6 +290,24 @@ Original idea and code came from L<JSON::XS::Boolean> written by Marc Lehmann.
 Tina Müller inspired me to create this distribution after reading her
 L<PTS 2018 report|http://blogs.perl.org/users/tinita/2018/05/my-report-of-the-perl-toolchain-summit-2018-in-oslo.html>.
 
+=head1 DEBUGGING
+
+When L<Types::Bool> gets loaded, it stops L<JSON::PP::Boolean>
+module from being loaded, since they are redundant.
+This prevents subroutines to be redefined and the
+corresponding warnings.
+You can set the C<TYPES_BOOL_NICE> environment variable to
+avoid that behavior.
+
+    TYPES_BOOL_NICE=1
+
+You can set the C<TYPES_BOOL_LOUD> environment variable to
+produce explicit warnings on subroutines found on
+L<JSON::PP::Boolean> package that L<Types::Bool> will skip
+and accept as they are.
+
+    TYPES_BOOL_LOUD=1
+
 =head1 SEE ALSO
 
 L<Types::Serialiser>
