@@ -17,6 +17,19 @@ use 5.005;
 
 BEGIN {
     require overload;
+    if ( $ENV{TYPES_BOOL_LOUD} ) {
+        my @o = grep overload::Method( Types::Bool, $_ ), qw(0+ ++ --);
+        my @s = grep Types::Bool->can($_), qw(true false is_bool);
+        push @s, '$VERSION' if $Types::Bool::VERSION;
+        if ( @o || @s ) {
+            my $p = ref do { bless \( my $dummy ), Types::Bool };
+            my @f;
+            push @f, join( ', ', @s ) if @s;
+            push @f, 'overloads on ' . join( ', ', @o ) if @o;
+            warn join( ' and ', @f ), qq{ defined for $p elsewhere};
+        }
+    }
+
     overload->import(
         '0+' => sub { ${ $_[0] } },
         '++' => sub { $_[0] = ${ $_[0] } + 1 },
