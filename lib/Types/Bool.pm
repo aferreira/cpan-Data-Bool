@@ -18,11 +18,11 @@ use 5.005;
 BEGIN {
     require overload;
     if ( $ENV{TYPES_BOOL_LOUD} ) {
-        my @o = grep overload::Method( Types::Bool, $_ ), qw(0+ ++ --);
+        my @o = grep Types::Bool->overload::Method($_), qw(0+ ++ --);
         my @s = grep Types::Bool->can($_), qw(true false is_bool);
         push @s, '$VERSION' if $Types::Bool::VERSION;
         if ( @o || @s ) {
-            my $p = ref do { bless \( my $dummy ), Types::Bool };
+            my $p = ref do { bless \( my $dummy ), 'Types::Bool' };
             my @f;
             push @f, join( ', ', @s ) if @s;
             push @f, 'overloads on ' . join( ', ', @o ) if @o;
@@ -35,7 +35,7 @@ BEGIN {
         '++' => sub { $_[0] = ${ $_[0] } + 1 },
         '--' => sub { $_[0] = ${ $_[0] } - 1 },
         fallback => 1,
-    ) unless overload::Method( Types::Bool, '0+' );
+    ) unless Types::Bool->overload::Method('0+');
 
     require constant;
     constant->import( true => do { bless \( my $dummy = 1 ), 'Types::Bool' } )
@@ -64,7 +64,7 @@ sub import {    # Load Exporter only if needed
     require Exporter;
     my $EXPORTER_VERSION = Exporter->VERSION;
     $EXPORTER_VERSION =~ tr/_//d;
-    push @ISA, qw(Exporter) if $EXPORTER_VERSION < 5.57;
+    push @Types::Bool::ISA, qw(Exporter) if $EXPORTER_VERSION < 5.57;
 
     no warnings 'redefine';
     *import = sub {
