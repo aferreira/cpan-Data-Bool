@@ -18,11 +18,11 @@ use 5.005;
 BEGIN {
     require overload;
     if ( $ENV{TYPES_BOOL_LOUD} ) {
-        my @o = grep Types::Bool->overload::Method($_), qw(0+ ++ --);
-        my @s = grep Types::Bool->can($_), qw(true false is_bool);
+        my @o = grep __PACKAGE__->overload::Method($_), qw(0+ ++ --);
+        my @s = grep __PACKAGE__->can($_), qw(true false is_bool);
         push @s, '$VERSION' if $Types::Bool::VERSION;
         if ( @o || @s ) {
-            my $p = ref do { bless \( my $dummy ), 'Types::Bool' };
+            my $p = ref do { bless \( my $dummy ), __PACKAGE__ };
             my @f;
             push @f, join( ', ', @s ) if @s;
             push @f, 'overloads on ' . join( ', ', @o ) if @o;
@@ -35,17 +35,17 @@ BEGIN {
         '++' => sub { $_[0] = ${ $_[0] } + 1 },
         '--' => sub { $_[0] = ${ $_[0] } - 1 },
         fallback => 1,
-    ) unless Types::Bool->overload::Method('0+');
+    ) unless __PACKAGE__->overload::Method('0+');
 
     require constant;
-    constant->import( true => do { bless \( my $dummy = 1 ), 'Types::Bool' } )
-      unless Types::Bool->can('true');
-    constant->import( false => do { bless \( my $dummy = 0 ), 'Types::Bool' } )
-      unless Types::Bool->can('false');
+    constant->import( true => do { bless \( my $dummy = 1 ), __PACKAGE__ } )
+      unless __PACKAGE__->can('true');
+    constant->import( false => do { bless \( my $dummy = 0 ), __PACKAGE__ } )
+      unless __PACKAGE__->can('false');
 
-    unless ( Types::Bool->can('is_bool') ) {
+    unless ( __PACKAGE__->can('is_bool') ) {
         require Scalar::Util;
-        *is_bool = sub ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa('Types::Bool') };
+        *is_bool = sub ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa(__PACKAGE__) };
     }
 
     $Types::Bool::VERSION = '2.98009'
