@@ -60,13 +60,19 @@ sub to_bool ($) { $_[0] ? true : false }
 
 @Types::Bool::EXPORT_OK = qw(true false is_bool to_bool);
 
-sub import {    # Load Exporter only if needed
+BEGIN {
+    if ( "$]" < 5.008003 ) {    # Inherit from Exporter (if needed)
+        require Exporter;
+        my $EXPORTER_VERSION = Exporter->VERSION;
+        $EXPORTER_VERSION =~ tr/_//d;
+        push @Types::Bool::ISA, qw(Exporter) if $EXPORTER_VERSION < 5.57;
+    }
+}
+
+sub import {                  # Load Exporter only if needed
     return unless @_ > 1;
 
     require Exporter;
-    my $EXPORTER_VERSION = Exporter->VERSION;
-    $EXPORTER_VERSION =~ tr/_//d;
-    push @Types::Bool::ISA, qw(Exporter) if $EXPORTER_VERSION < 5.57;
 
     no warnings 'redefine';
     *import = sub {
