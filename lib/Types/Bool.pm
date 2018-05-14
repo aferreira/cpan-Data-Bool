@@ -1,27 +1,29 @@
 
+use 5.005;
+
+package Types::Bool;
+$Types::Bool::VERSION = '2.98010';
+
+# ABSTRACT: Booleans as objects for Perl
+
 BEGIN {
 
-    # For historical reasons, alias *Types::Bool with JSON::PP::Boolean
-    *Types::Bool:: = *JSON::PP::Boolean::;
+    # For historical reasons, alias *Types::Bool::Impl with JSON::PP::Boolean
+    *Types::Bool::Impl:: = *JSON::PP::Boolean::;
 
     # JSON/PP/Boolean.pm is redundant
     $INC{'JSON/PP/Boolean.pm'} ||= __FILE__
       unless $ENV{TYPES_BOOL_NICE};
 }
 
-package Types::Bool;
-
-# ABSTRACT: Booleans as objects for Perl
-
-use 5.005;
-
-sub new { bless \( my $dummy = $_[1] ? 1 : 0 ), $_[0] }
+package    #
+  Types::Bool::Impl;
 
 BEGIN {
     require overload;
     if ( $ENV{TYPES_BOOL_LOUD} ) {
         my @o = grep __PACKAGE__->overload::Method($_), qw(0+ ++ --);
-        my @s = grep __PACKAGE__->can($_), qw(true false is_bool);
+        my @s = grep __PACKAGE__->can($_), qw(new);
         push @s, '$VERSION' if $Types::Bool::VERSION;
         if ( @o || @s ) {
             my $p = ref do { bless \( my $dummy ), __PACKAGE__ };
@@ -39,22 +41,23 @@ BEGIN {
         fallback => 1,
     ) unless __PACKAGE__->overload::Method('0+');
 
-    require constant;
-    constant->import( true => __PACKAGE__->new(1) )
-      unless __PACKAGE__->can('true');
-    constant->import( false => __PACKAGE__->new(0) )
-      unless __PACKAGE__->can('false');
+    *new = sub { bless \( my $dummy = $_[1] ? 1 : 0 ), $_[0] }
+      unless __PACKAGE__->can('new');
 
-    unless ( __PACKAGE__->can('is_bool') ) {
-        require Scalar::Util;
-        *is_bool = sub ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa(__PACKAGE__) };
-    }
-
-    $Types::Bool::VERSION = '2.98010'
-      unless $Types::Bool::VERSION;
-
-    $Types::Bool::ALT_VERSION = '2.98010';
+    $Types::Bool::Impl::VERSION = '2.98010'
+      unless $Types::Bool::Impl::VERSION;
 }
+
+package Types::Bool;
+
+use Scalar::Util ();
+
+use constant true  => Types::Bool::Impl->new(1);
+use constant false => Types::Bool::Impl->new(0);
+
+use constant BOOL_CORE => ref true;
+
+sub is_bool ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa(BOOL_CORE) }
 
 sub to_bool ($) { $_[0] ? true : false }
 
@@ -69,7 +72,7 @@ BEGIN {
     }
 }
 
-sub import {                  # Load Exporter only if needed
+sub import {                    # Load Exporter only if needed
     return unless @_ > 1;
 
     require Exporter;
