@@ -15,6 +15,8 @@ package Types::Bool;
 
 use 5.005;
 
+sub new { bless \( my $dummy = $_[1] ? 1 : 0 ), $_[0] }
+
 BEGIN {
     require overload;
     if ( $ENV{TYPES_BOOL_LOUD} ) {
@@ -38,9 +40,9 @@ BEGIN {
     ) unless __PACKAGE__->overload::Method('0+');
 
     require constant;
-    constant->import( true => do { bless \( my $dummy = 1 ), __PACKAGE__ } )
+    constant->import( true => __PACKAGE__->new(1) )
       unless __PACKAGE__->can('true');
-    constant->import( false => do { bless \( my $dummy = 0 ), __PACKAGE__ } )
+    constant->import( false => __PACKAGE__->new(0) )
       unless __PACKAGE__->can('false');
 
     unless ( __PACKAGE__->can('is_bool') ) {

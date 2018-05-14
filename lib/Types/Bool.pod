@@ -96,6 +96,11 @@ be done with
 
     Types::Bool::to_bool($value);
 
+Independent boolean objects may be produced from a Perl true or false value
+by using
+
+    Types::Bool->new($value);
+
 Also part of this interface is a few overloaded
 operators for L<Type::Bool> objects.
 
@@ -137,8 +142,10 @@ and L<Cpanel::JSON::XS> modules.
 
     our @EXPORT_OK = qw(true false is_bool to_bool);
 
-    use constant true  => do { bless \( my $dummy = 1 ), 'Types::Bool' };
-    use constant false => do { bless \( my $dummy = 0 ), 'Types::Bool' };
+    sub new { bless \( my $dummy = $_[1] ? 1 : 0 ), $_[0] }
+
+    use constant true  => Types::Bool->new(1);
+    use constant false => Types::Bool->new(0);
 
     sub is_bool ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa('Types::Bool') }
 
@@ -277,6 +284,20 @@ Return the canonical "true" value.
 
 This function has a C<()> prototype and works as a constant
 (suitable for inlining by the Perl interpreter).
+
+=head1 METHODS
+
+L<Types::Bool> implements the following methods.
+
+=head2 new
+
+    $bool = Types::Bool->new($value);
+
+Creates a new L<Types::Bool> object from a true or false Perl value.
+
+This is similar to C<Types::Bool::to_bool($value)>, but L</new>
+produces independent boolean objects while L</to_bool>
+returns the shared L</true> and L</false> instances.
 
 =head1 BUGS
 
