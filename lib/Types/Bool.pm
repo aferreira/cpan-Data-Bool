@@ -4,7 +4,7 @@ use 5.005;
 package Types::Bool;
 $Types::Bool::VERSION = '2.98011';
 
-# ABSTRACT: Booleans as objects for Perl
+# ABSTRACT: An interface to booleans as objects for Perl
 
 BEGIN {
 
