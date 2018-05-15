@@ -102,7 +102,7 @@ or false value by using
     Types::Bool->new($value);
 
 Also part of this interface is a few overloaded
-operators for L<Type::Bool> booleans.
+operators for L<Types::Bool> booleans.
 
     # bool
     true  ? 'yes' : 'no';    # 'yes'
