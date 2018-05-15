@@ -2,7 +2,7 @@
 use 5.005;
 
 package Types::Bool;
-$Types::Bool::VERSION = '2.98010';
+$Types::Bool::VERSION = '2.98011';
 
 # ABSTRACT: Booleans as objects for Perl
 
@@ -44,7 +44,7 @@ BEGIN {
     *new = sub { bless \( my $dummy = $_[1] ? 1 : 0 ), $_[0] }
       unless __PACKAGE__->can('new');
 
-    $Types::Bool::Impl::VERSION = '2.98010'
+    $Types::Bool::Impl::VERSION = '2.98011'
       unless $Types::Bool::Impl::VERSION;
 }
 
