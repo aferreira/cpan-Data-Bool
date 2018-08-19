@@ -55,9 +55,9 @@ use Scalar::Util ();
 use constant true  => Types::Bool::Impl->new(1);
 use constant false => Types::Bool::Impl->new(0);
 
-use constant BOOL_CORE => ref true;
+use constant BOOL_PACKAGE => ref true;
 
-sub is_bool ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa(BOOL_CORE) }
+sub is_bool ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa(BOOL_PACKAGE) }
 
 sub to_bool ($) { $_[0] ? true : false }
 

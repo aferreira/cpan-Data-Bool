@@ -3,6 +3,8 @@ Release history for Types-Bool
 
 {{$NEXT}}
 
+    - Rename BOOL_CORE to BOOL_PACKAGE
+
 2.98011   2018-05-14 18:19:25-07:00 America/Los_Angeles
 
     - Detach Types::Bool and the implementation package for booleans

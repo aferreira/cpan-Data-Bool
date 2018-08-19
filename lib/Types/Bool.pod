@@ -63,7 +63,7 @@ That means
 
 but also
 
-    Types::Bool::true->isa(Types::Bool::BOOL_CORE);
+    Types::Bool::true->isa(Types::Bool::BOOL_PACKAGE);
 
 This also allows the optimization of an isa test
 to a direct comparison of stash pointers.
@@ -145,9 +145,9 @@ and L<Cpanel::JSON::XS> modules.
     use constant true  => Types::Bool::Impl->new(1);
     use constant false => Types::Bool::Impl->new(0);
 
-    use constant BOOL_CORE => ref true;
+    use constant BOOL_PACKAGE => ref true;
 
-    sub is_bool ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa(BOOL_CORE) }
+    sub is_bool ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa(BOOL_PACKAGE) }
 
     sub to_bool ($) { $_[0] ? true : false }
 
@@ -247,11 +247,11 @@ to booleans as objects for Perl.
 =head1 FUNCTIONS
 
 L<Types::Bool> implements the following functions, which
-can be imported individually (except for C<BOOL_CORE>).
+can be imported individually (except for C<BOOL_PACKAGE>).
 
-=head2 BOOL_CORE
+=head2 BOOL_PACKAGE
 
-    $package = Types::Bool::BOOL_CORE;
+    $package = Types::Bool::BOOL_PACKAGE;
 
 The implementation package of the boolean objects.
 
