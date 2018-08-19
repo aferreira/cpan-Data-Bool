@@ -116,11 +116,11 @@ operators for L<Types::Bool> booleans.
     true . '';     # 1
     false . '';    # 0
 
-=head2 CORE CODE
+=head2 BASIC CODE
 
 The code of this module would look as below, if not
 for the efforts to play nice with L<JSON::PP>, L<Types::Serialiser>
-and L<Cpanel::JSON::XS> modules.
+and L<Cpanel::JSON::XS> modules and old versions of perl.
 
     use 5.006;
 
@@ -150,6 +150,75 @@ and L<Cpanel::JSON::XS> modules.
     sub is_bool ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa(BOOL_PACKAGE) }
 
     sub to_bool ($) { $_[0] ? true : false }
+
+=head1 FUNCTIONS
+
+L<Types::Bool> implements the following functions, which
+can be imported individually.
+
+=head2 BOOL_PACKAGE
+
+    $package = Types::Bool::BOOL_PACKAGE;
+
+The implementation package of the boolean objects.
+
+It is recommended to always use this instead of
+C<'JSON::PP::Boolean'> or C<'Types::Bool::Impl'> for maximum
+compatibility. It works correctly with C<ref $bool> comparisons
+or isa checks.
+
+=head2 false
+
+    $false = Types::Bool::false;
+
+Returns the canonical "false" value.
+
+This function has a C<()> prototype and works as a constant
+(suitable for inlining by the Perl interpreter).
+
+=head2 is_bool
+
+    $is_bool = Types::Bool::is_bool($value);
+
+Returns true if given a C<Types::Bool> boolean.
+Return false otherwise.
+
+This function has a C<($)> prototype.
+
+=head2 to_bool
+
+    $bool = Types::Bool::to_bool($value);
+
+Turns a true or false Perl value into
+C<Types::Bool::true> or C<Types::Bool::false>.
+
+This function has a C<($)> prototype.
+
+=head2 true
+
+    $true = Types::Bool::true;
+
+Returns the canonical "true" value.
+
+This function has a C<()> prototype and works as a constant
+(suitable for inlining by the Perl interpreter).
+
+=head1 METHODS
+
+The following methods are implemented for L<Types::Bool> booleans.
+
+=head2 new
+
+    $bool = Types::Bool->new($value);
+
+Creates a new L<Types::Bool> boolean from a true or false Perl value.
+
+This is similar to C<Types::Bool::to_bool($value)>, but L</new>
+produces independent boolean objects while L</to_bool>
+returns the shared L</true> and L</false> instances.
+
+Most of the time this is not needed or desired, except
+for a few specialized cases. Prefer L</true>, L</false>, L</to_bool>.
 
 =head1 COMPATIBILITY
 
@@ -243,75 +312,6 @@ to a distribution containing L<JSON::PP::Boolean>.
 Even if that does not happen,
 this module still offers as a compatible and sane interface
 to booleans as objects for Perl.
-
-=head1 FUNCTIONS
-
-L<Types::Bool> implements the following functions, which
-can be imported individually.
-
-=head2 BOOL_PACKAGE
-
-    $package = Types::Bool::BOOL_PACKAGE;
-
-The implementation package of the boolean objects.
-
-It is recommended to always use this instead of
-C<'JSON::PP::Boolean'> or C<'Types::Bool::Impl'> for maximum
-compatibility. It works correctly with C<ref $bool> comparisons
-or isa checks.
-
-=head2 false
-
-    $false = Types::Bool::false;
-
-Returns the canonical "false" value.
-
-This function has a C<()> prototype and works as a constant
-(suitable for inlining by the Perl interpreter).
-
-=head2 is_bool
-
-    $is_bool = Types::Bool::is_bool($value);
-
-Returns true if given a C<Types::Bool> boolean.
-Return false otherwise.
-
-This function has a C<($)> prototype.
-
-=head2 to_bool
-
-    $bool = Types::Bool::to_bool($value);
-
-Turns a true or false Perl value into
-C<Types::Bool::true> or C<Types::Bool::false>.
-
-This function has a C<($)> prototype.
-
-=head2 true
-
-    $true = Types::Bool::true;
-
-Returns the canonical "true" value.
-
-This function has a C<()> prototype and works as a constant
-(suitable for inlining by the Perl interpreter).
-
-=head1 METHODS
-
-The following methods are implemented for L<Types::Bool> booleans.
-
-=head2 new
-
-    $bool = Types::Bool->new($value);
-
-Creates a new L<Types::Bool> boolean from a true or false Perl value.
-
-This is similar to C<Types::Bool::to_bool($value)>, but L</new>
-produces independent boolean objects while L</to_bool>
-returns the shared L</true> and L</false> instances.
-
-Most of the time this is not needed or desired, except
-for a few specialized cases. Prefer L</true>, L</false>, L</to_bool>.
 
 =head1 BUGS
 

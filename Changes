@@ -5,6 +5,7 @@ Release history for Types-Bool
 
     - Rename BOOL_CORE to BOOL_PACKAGE
     - Make BOOL_PACKAGE exportable
+    - Rearrange POD sections
 
 2.98011   2018-05-14 18:19:25-07:00 America/Los_Angeles
 
