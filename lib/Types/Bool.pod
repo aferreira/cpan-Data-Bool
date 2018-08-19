@@ -7,7 +7,7 @@ Types::Bool - An interface to booleans as objects for Perl
 
 =head1 VERSION
 
-version 2.98011
+version 2.98012
 
 =head1 SYNOPSIS
 
