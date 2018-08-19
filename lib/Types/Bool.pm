@@ -61,7 +61,7 @@ sub is_bool ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa(BOOL_PACKAGE) }
 
 sub to_bool ($) { $_[0] ? true : false }
 
-@Types::Bool::EXPORT_OK = qw(true false is_bool to_bool);
+@Types::Bool::EXPORT_OK = qw(true false is_bool to_bool BOOL_PACKAGE);
 
 BEGIN {
     if ( "$]" < 5.008003 ) {    # Inherit from Exporter (if needed)

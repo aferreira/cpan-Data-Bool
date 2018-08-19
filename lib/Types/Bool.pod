@@ -247,7 +247,7 @@ to booleans as objects for Perl.
 =head1 FUNCTIONS
 
 L<Types::Bool> implements the following functions, which
-can be imported individually (except for C<BOOL_PACKAGE>).
+can be imported individually.
 
 =head2 BOOL_PACKAGE
 
@@ -259,8 +259,6 @@ It is recommended to always use this instead of
 C<'JSON::PP::Boolean'> or C<'Types::Bool::Impl'> for maximum
 compatibility. It works correctly with C<ref $bool> comparisons
 or isa checks.
-
-This is not exported. It is meant to be used as a fully qualified name.
 
 =head2 false
 
