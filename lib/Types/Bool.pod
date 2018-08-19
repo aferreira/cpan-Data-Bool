@@ -99,7 +99,7 @@ booleans can be done with
 Independent boolean objects may be produced from a Perl true
 or false value by using
 
-    Types::Bool->new($value);
+    Types::Bool::BOOL_PACKAGE->new($value);
 
 Also part of this interface is a few overloaded
 operators for L<Types::Bool> booleans.
@@ -181,7 +181,7 @@ This function has a C<()> prototype and works as a constant
     $is_bool = Types::Bool::is_bool($value);
 
 Returns true if given a C<Types::Bool> boolean.
-Return false otherwise.
+Returns false otherwise.
 
 This function has a C<($)> prototype.
 
@@ -209,7 +209,7 @@ The following methods are implemented for L<Types::Bool> booleans.
 
 =head2 new
 
-    $bool = Types::Bool->new($value);
+    $bool = Types::Bool::BOOL_PACKAGE->new($value);
 
 Creates a new L<Types::Bool> boolean from a true or false Perl value.
 
