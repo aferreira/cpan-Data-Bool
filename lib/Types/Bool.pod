@@ -66,7 +66,13 @@ but also
     Types::Bool::true->isa(Types::Bool::BOOL_PACKAGE);
 
 This also allows the optimization of an isa test
-to a direct comparison of stash pointers.
+to a direct comparison of stash pointers. That is,
+
+    ref Types::Bool::true eq Types::Bool::BOOL_PACKAGE
+
+is equivalent to
+
+    ref Types::Bool::true eq 'JSON::PP::Boolean'
 
 =head2 INTERFACE
 
@@ -140,7 +146,7 @@ and L<Cpanel::JSON::XS> modules and old versions of perl.
     use Exporter 1.57 'import';
     use Scalar::Util ();
 
-    our @EXPORT_OK = qw(true false is_bool to_bool);
+    our @EXPORT_OK = qw(true false is_bool to_bool BOOL_PACKAGE);
 
     use constant true  => Types::Bool::Impl->new(1);
     use constant false => Types::Bool::Impl->new(0);
