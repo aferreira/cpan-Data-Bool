@@ -3,9 +3,7 @@ use strict;
 use warnings;
 use Test::More;
 
-eval { require JSON::PP };
-plan skip_all => "JSON::PP needed for this test" if $@;
-use Types::Bool qw(true false is_bool to_bool);
+use Data::Bool qw(true false is_bool to_bool);
 
 plan tests => 10;
 

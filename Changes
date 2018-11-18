@@ -1,8 +1,9 @@
 
-Release history for Types-Bool
+Release history for Data-Bool
 
 {{$NEXT}}
 
+   - Rename namespace to Data::Bool (from Types::Bool)
 
 2.98013   2018-11-17 16:06:13-08:00 America/Los_Angeles (NOT RELEASED)
 
