@@ -3,12 +3,12 @@ use strict;
 use warnings;
 use Test::More tests => 4;
 
-use Types::Bool qw(true false is_bool to_bool);
+use Data::Bool qw(true false is_bool to_bool);
 
 TODO: {
     local $TODO = 'Unexplained mismatch';
-    is( \&true,  \&Types::Bool::true );
-    is( \&false, \&Types::Bool::false );
+    is( \&true,  \&Data::Bool::true );
+    is( \&false, \&Data::Bool::false );
 }
-is( \&is_bool, \&Types::Bool::is_bool );
-is( \&to_bool, \&Types::Bool::to_bool );
+is( \&is_bool, \&Data::Bool::is_bool );
+is( \&to_bool, \&Data::Bool::to_bool );

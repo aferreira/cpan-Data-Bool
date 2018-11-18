@@ -1,30 +1,30 @@
 
 use 5.005;
 
-package Types::Bool;
-$Types::Bool::VERSION = '2.98012';
+package Data::Bool;
+$Data::Bool::VERSION = '2.98012';
 
 # ABSTRACT: An interface to booleans as objects for Perl
 
 BEGIN {
 
-    # For historical reasons, alias *Types::Bool::Impl with JSON::PP::Boolean
-    *Types::Bool::Impl:: = *JSON::PP::Boolean::;
+    # For historical reasons, alias *Data::Bool::Impl with JSON::PP::Boolean
+    *Data::Bool::Impl:: = *JSON::PP::Boolean::;
 
     # JSON/PP/Boolean.pm is redundant
     $INC{'JSON/PP/Boolean.pm'} ||= __FILE__
-      unless $ENV{TYPES_BOOL_NICE};
+      unless $ENV{DATA_BOOL_NICE};
 }
 
 package    #
-  Types::Bool::Impl;
+  Data::Bool::Impl;
 
 BEGIN {
     require overload;
-    if ( $ENV{TYPES_BOOL_LOUD} ) {
+    if ( $ENV{DATA_BOOL_LOUD} ) {
         my @o = grep __PACKAGE__->overload::Method($_), qw(0+ ++ --);
         my @s = grep __PACKAGE__->can($_), qw(new);
-        push @s, '$VERSION' if $Types::Bool::VERSION;
+        push @s, '$VERSION' if $Data::Bool::VERSION;
         if ( @o || @s ) {
             my $p = ref do { bless \( my $dummy ), __PACKAGE__ };
             my @f;
@@ -44,16 +44,16 @@ BEGIN {
     *new = sub { bless \( my $dummy = $_[1] ? 1 : 0 ), $_[0] }
       unless __PACKAGE__->can('new');
 
-    $Types::Bool::Impl::VERSION = '2.98012'
-      unless $Types::Bool::Impl::VERSION;
+    $Data::Bool::Impl::VERSION = '2.98012'
+      unless $Data::Bool::Impl::VERSION;
 }
 
-package Types::Bool;
+package Data::Bool;
 
 use Scalar::Util ();
 
-use constant true  => Types::Bool::Impl->new(1);
-use constant false => Types::Bool::Impl->new(0);
+use constant true  => Data::Bool::Impl->new(1);
+use constant false => Data::Bool::Impl->new(0);
 
 use constant BOOL_PACKAGE => ref true;
 
@@ -61,14 +61,14 @@ sub is_bool ($) { Scalar::Util::blessed( $_[0] ) and $_[0]->isa(BOOL_PACKAGE) }
 
 sub to_bool ($) { $_[0] ? true : false }
 
-@Types::Bool::EXPORT_OK = qw(true false is_bool to_bool BOOL_PACKAGE);
+@Data::Bool::EXPORT_OK = qw(true false is_bool to_bool BOOL_PACKAGE);
 
 BEGIN {
     if ( "$]" < 5.008003 ) {    # Inherit from Exporter (if needed)
         require Exporter;
         my $EXPORTER_VERSION = Exporter->VERSION;
         $EXPORTER_VERSION =~ tr/_//d;
-        push @Types::Bool::ISA, qw(Exporter) if $EXPORTER_VERSION < 5.57;
+        push @Data::Bool::ISA, qw(Exporter) if $EXPORTER_VERSION < 5.57;
     }
 }
 

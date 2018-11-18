@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Test::More;
 
-use Types::Bool qw(true false is_bool to_bool);
+use Data::Bool qw(true false is_bool to_bool);
 
 plan tests => 10;
 
