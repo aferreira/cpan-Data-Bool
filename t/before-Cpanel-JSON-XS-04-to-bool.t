@@ -3,9 +3,7 @@ use strict;
 use warnings;
 use Test::More;
 
-eval { require Cpanel::JSON::XS };
-plan skip_all => "Cpanel::JSON::XS needed for this test" if $@;
-use Types::Bool qw(true false is_bool to_bool);
+use Data::Bool qw(true false is_bool to_bool);
 
 plan tests => 10;
 

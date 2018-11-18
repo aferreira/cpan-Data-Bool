@@ -3,17 +3,15 @@ use Test::More;
 
 # From MLEHMANN/Types-Serialiser-1.0/t/51_types.t
 
-eval { require JSON::PP };
-plan skip_all => "JSON::PP needed for this test" if $@;
-use Types::Bool;
+use Data::Bool;
 
 plan tests => 16;
 
 {
-    my $dec = Types::Bool::false;
+    my $dec = Data::Bool::false;
     ok( !$dec, 'false() is false' );
 
-    ok( Types::Bool::is_bool($dec), 'false() is_bool()' );
+    ok( Data::Bool::is_bool($dec), 'false() is_bool()' );
 
     cmp_ok( $dec,     '==', 0, 'false() == 0' );
     cmp_ok( !$dec,    '==', 1, '!false() == 1' );
@@ -23,10 +21,10 @@ plan tests => 16;
     cmp_ok( $dec * 2, '==', 0, 'false()*2 == 0' );
 }
 {
-    my $dec = Types::Bool::true;
+    my $dec = Data::Bool::true;
     ok( $dec, 'true() is true' );
 
-    ok( Types::Bool::is_bool($dec), 'true() is_bool()' );
+    ok( Data::Bool::is_bool($dec), 'true() is_bool()' );
 
     cmp_ok( $dec,     '==', 1, 'true() == 1' );
     cmp_ok( !$dec,    '==', 0, '!true() == 0' );

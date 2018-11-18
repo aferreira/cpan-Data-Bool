@@ -3,9 +3,7 @@ use strict;
 use warnings;
 use Test::More;
 
-eval { require Types::Serialiser };
-plan skip_all => "Types::Serialiser needed for this test" if $@;
-use Types::Bool qw(true false is_bool to_bool);
+use Data::Bool qw(true false is_bool to_bool);
 
 plan tests => 10;
 
