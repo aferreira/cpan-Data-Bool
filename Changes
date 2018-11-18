@@ -3,6 +3,8 @@ Release history for Data-Bool
 
 {{$NEXT}}
 
+2.98014   2018-11-17 17:29:27-08:00 America/Los_Angeles
+
    - Rename namespace to Data::Bool (from Types::Bool)
 
 2.98013   2018-11-17 16:06:13-08:00 America/Los_Angeles (NOT RELEASED)

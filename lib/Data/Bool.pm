@@ -2,7 +2,7 @@
 use 5.005;
 
 package Data::Bool;
-$Data::Bool::VERSION = '2.98012';
+$Data::Bool::VERSION = '2.98014';
 
 # ABSTRACT: An interface to booleans as objects for Perl
 
@@ -44,7 +44,7 @@ BEGIN {
     *new = sub { bless \( my $dummy = $_[1] ? 1 : 0 ), $_[0] }
       unless __PACKAGE__->can('new');
 
-    $Data::Bool::Impl::VERSION = '2.98012'
+    $Data::Bool::Impl::VERSION = '2.98014'
       unless $Data::Bool::Impl::VERSION;
 }
 

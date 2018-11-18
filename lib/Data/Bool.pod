@@ -7,7 +7,7 @@ Data::Bool - An interface to booleans as objects for Perl
 
 =head1 VERSION
 
-version 2.98012
+version 2.98014
 
 =head1 SYNOPSIS
 
