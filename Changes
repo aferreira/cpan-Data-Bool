@@ -4,6 +4,11 @@ Release history for Types-Bool
 {{$NEXT}}
 
 
+2.98013   2018-11-17 16:06:13-08:00 America/Los_Angeles (NOT RELEASED)
+
+   - Minor fixes to documentation
+   - Fix a mistake in documenting new()
+
 2.98012   2018-08-18 17:37:15-07:00 America/Los_Angeles
 
    - Rename BOOL_CORE to BOOL_PACKAGE
